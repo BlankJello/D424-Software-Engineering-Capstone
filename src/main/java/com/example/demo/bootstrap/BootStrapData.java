@@ -1,77 +1,56 @@
 package com.example.demo.bootstrap;
 
-import com.example.demo.domain.OutsourcedPart;
-import com.example.demo.domain.Part;
-import com.example.demo.domain.Product;
-import com.example.demo.repositories.OutsourcedPartRepository;
-import com.example.demo.repositories.PartRepository;
-import com.example.demo.repositories.ProductRepository;
-import com.example.demo.service.OutsourcedPartService;
-import com.example.demo.service.OutsourcedPartServiceImpl;
-import com.example.demo.service.ProductService;
-import com.example.demo.service.ProductServiceImpl;
+import com.example.demo.domain.Employee;
+import com.example.demo.domain.PerformanceReview;
+import com.example.demo.repositories.EmployeeRepository;
+import com.example.demo.repositories.PerformanceReviewRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
-/**
- *
- *
- *
- *
- */
 @Component
 public class BootStrapData implements CommandLineRunner {
 
-    private final PartRepository partRepository;
-    private final ProductRepository productRepository;
+    private final EmployeeRepository employeeRepository;
+    private final PerformanceReviewRepository performanceReviewRepository;
 
-    private final OutsourcedPartRepository outsourcedPartRepository;
-
-    public BootStrapData(PartRepository partRepository, ProductRepository productRepository, OutsourcedPartRepository outsourcedPartRepository) {
-        this.partRepository = partRepository;
-        this.productRepository = productRepository;
-        this.outsourcedPartRepository=outsourcedPartRepository;
+    public BootStrapData(EmployeeRepository employeeRepository, PerformanceReviewRepository performanceReviewRepository) {
+        this.employeeRepository = employeeRepository;
+        this.performanceReviewRepository = performanceReviewRepository;
     }
 
     @Override
     public void run(String... args) throws Exception {
+        // Create sample employees
+        Employee emp1 = new Employee(null, "John", "Doe", "john.doe@example.com", "Software Engineer", LocalDate.of(2020, 1, 15));
+        Employee emp2 = new Employee(null, "Jane", "Smith", "jane.smith@example.com", "Project Manager", LocalDate.of(2018, 6, 1));
 
-       /*
-        OutsourcedPart o= new OutsourcedPart();
-        o.setCompanyName("Western Governors University");
-        o.setName("out test");
-        o.setInv(5);
-        o.setPrice(20.0);
-        o.setId(100L);
-        outsourcedPartRepository.save(o);
-        OutsourcedPart thePart=null;
-        List<OutsourcedPart> outsourcedParts=(List<OutsourcedPart>) outsourcedPartRepository.findAll();
-        for(OutsourcedPart part:outsourcedParts){
-            if(part.getName().equals("out test"))thePart=part;
+        employeeRepository.save(emp1);
+        employeeRepository.save(emp2);
+
+        // Create sample performance reviews
+        PerformanceReview review1 = new PerformanceReview(null, emp1.getId(), LocalDate.of(2023, 12, 1), "Manager A", "Excellent work on the recent project.", 5);
+        PerformanceReview review2 = new PerformanceReview(null, emp2.getId(), LocalDate.of(2023, 11, 15), "Manager B", "Strong leadership skills.", 4);
+
+        performanceReviewRepository.save(review1);
+        performanceReviewRepository.save(review2);
+
+        // Print all employees
+        List<Employee> employees = employeeRepository.findAll();
+        System.out.println("Employees in system:");
+        for (Employee e : employees) {
+            System.out.println(e.getId() + ": " + e.getFirstName() + " " + e.getLastName() + " - " + e.getPosition());
         }
 
-        System.out.println(thePart.getCompanyName());
-        */
-        List<OutsourcedPart> outsourcedParts=(List<OutsourcedPart>) outsourcedPartRepository.findAll();
-        for(OutsourcedPart part:outsourcedParts){
-            System.out.println(part.getName()+" "+part.getCompanyName());
+        // Print all performance reviews
+        List<PerformanceReview> reviews = performanceReviewRepository.findAll();
+        System.out.println("Performance Reviews in system:");
+        for (PerformanceReview r : reviews) {
+            System.out.println("Review ID: " + r.getId() + ", Employee ID: " + r.getEmployeeId() + ", Rating: " + r.getRating() + ", Comments: " + r.getComments());
         }
 
-        /*
-        Product bicycle= new Product("bicycle",100.0,15);
-        Product unicycle= new Product("unicycle",100.0,15);
-        productRepository.save(bicycle);
-        productRepository.save(unicycle);
-        */
-
-        System.out.println("Started in Bootstrap");
-        System.out.println("Number of Products"+productRepository.count());
-        System.out.println(productRepository.findAll());
-        System.out.println("Number of Parts"+partRepository.count());
-        System.out.println(partRepository.findAll());
-
+        System.out.println("Bootstrap data loaded successfully.");
     }
 }

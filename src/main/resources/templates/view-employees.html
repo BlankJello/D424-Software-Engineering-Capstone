@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>View Employees</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        table { border-collapse: collapse; width: 100%; }
+        th, td { padding: 12px; border: 1px solid #ddd; text-align: left; }
+        th { background-color: #f2f2f2; }
+        a { text-decoration: none; color: #007bff; }
+        a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+<h1>Employees List</h1>
+<a href="/">Back to Home</a> | <a href="/employees/new">Add New Employee</a>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Role</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="employee : ${employees}">
+        <td th:text="${employee.id}">1</td>
+        <td th:text="${employee.name}">John Doe</td>
+        <td th:text="${employee.role}">Developer</td>
+    </tr>
+    <tr th:if="${#lists.isEmpty(employees)}">
+        <td colspan="3">No employees found.</td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Add New Employee</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        form { max-width: 400px; }
+        label { display: block; margin-top: 15px; }
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        a { text-decoration: none; color: #007bff; }
+        a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+<h1>Add New Employee</h1>
+<a href="/employees">Back to Employees List</a>
+<form th:action="@{/employees}" method="post" th:object="${employee}">
+    <label for="name">Name:</label>
+    <input type="text" id="name" th:field="*{name}" placeholder="Enter employee name" required />
+
+    <label for="role">Role:</label>
+    <input type="text" id="role" th:field="*{role}" placeholder="Enter employee role" required />
+
+    <button type="submit">Add Employee</button>
+</form>
+</body>
+</html>
