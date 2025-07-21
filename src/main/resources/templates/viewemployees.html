@@ -19,15 +19,20 @@
     <thead>
     <tr>
         <th>ID</th>
-        <th>Name</th>
-        <th>Role</th>
+        <th>FirstName</th>
+        <th>LastName</th>
+        <th>Email</th>
+        <th>position</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="employee : ${employees}">
+    <tr th:each="employee : ${employee}">
         <td th:text="${employee.id}">1</td>
-        <td th:text="${employee.name}">John Doe</td>
-        <td th:text="${employee.role}">Developer</td>
+        <td th:text="${firstName}">John</td>
+        <td th:text="${employee.lastName}">Doe</td>
+        <td th:text="${email}">johndoe@email.com</td>
+        <td th:text="${employee.position}">Developer</td>
+
     </tr>
     <tr th:if="${#lists.isEmpty(employees)}">
         <td colspan="3">No employees found.</td>

@@ -2,16 +2,24 @@ package com.example.demo.controllers;
 
 import com.example.demo.domain.Employee;
 import com.example.demo.service.EmployeeService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
+import com.example.demo.repositories.EmployeeRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+
 
 @Controller
 @RequestMapping("/employees")  // Note: no /api prefix here
 public class EmployeeController {
 
-    private final EmployeeService employeeService;
+    private final EmployeeService employeeService;;
 
+    @Autowired
     public EmployeeController(EmployeeService employeeService) {
         this.employeeService = employeeService;
     }

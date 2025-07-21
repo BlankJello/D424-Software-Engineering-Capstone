@@ -31,14 +31,26 @@
 <body>
 <h1>Add New Employee</h1>
 <a href="/employees">Back to Employees List</a>
-<form th:action="@{/employees}" method="post" th:object="${employee}">
-    <label for="name">Name:</label>
-    <input type="text" id="name" th:field="*{name}" placeholder="Enter employee name" required />
+<form action="#" th:action="@{/employees}" method="post" th:object="${employee}">
 
-    <label for="role">Role:</label>
-    <input type="text" id="role" th:field="*{role}" placeholder="Enter employee role" required />
+    <label for="id">id:</label>
+    <p><input type="text" id="id" th:field="*{id}" placeholder="Enter employee id" class="form-control mb-4 col-4" /></p>
 
-    <button type="submit">Add Employee</button>
+    <label for="firstName">First Name:</label>
+    <label for="lastName">Last Name:</label>
+   <p><input type="text" id="firstName" th:field="*{firstName}" placeholder="Enter employee first name" class="form-control mb-4 col-4" /></p>
+   <p><input type="text" id="lastName" th:field="*{lastName}" placeholder="Enter employee last name" class="form-control mb-4 col-4" /></p>
+
+    <label for="hireDate">hireDate:</label>
+    <p><input type="text" id="hireDate" th:field="*{hireDate}" placeholder="Enter employee hireDate" class="form-control mb-4 col-4" /></p>
+
+    <label for="email">Email:</label>
+    <p><input type="text" id="email" th:field="*{email}" placeholder="Enter employee email" class="form-control mb-4 col-4" /></p>
+
+    <label for="position">Position:</label>
+    <p><input type="text" id="position" th:field="*{position}" placeholder="Enter employee position" class="form-control mb-4 col-4" /></p>
+
+    <p><input type="submit" value="Submit" /></p>
 </form>
 </body>
 </html>
