@@ -15,24 +15,41 @@
 <body>
 <h1>Employees List</h1>
 <a href="/">Back to Home</a> | <a href="/employees/new">Add New Employee</a>
+
+<div class="search-container">
+    <form th:action="@{/employees}" method="get">
+        <input type="text" name="keyword" placeholder="Search employees..." class="search-input"
+               th:value="${keyword}" />
+        <button type="submit" class="search-button">Search</button>
+        <a th:href="@{/employees}" style="margin-left:10px;">Clear</a>
+    </form>
+</div>
+
 <table>
     <thead>
     <tr>
         <th>ID</th>
-        <th>FirstName</th>
-        <th>LastName</th>
+        <th>First Name</th>
+        <th>Last Name</th>
         <th>Email</th>
         <th>position</th>
+        <th>hire Date</th>
+        <th>Actions</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="employee : ${employee}">
+    <tr th:each="employee : ${employees}">
         <td th:text="${employee.id}">1</td>
-        <td th:text="${firstName}">John</td>
+        <td th:text="${employee.firstName}">John</td>
         <td th:text="${employee.lastName}">Doe</td>
-        <td th:text="${email}">johndoe@email.com</td>
+        <td th:text="${employee.email}">johndoe@email.com</td>
         <td th:text="${employee.position}">Developer</td>
-
+        <td th:text="${employee.hireDate}">Date</td>
+        <td>
+            <a th:href="@{'/employees/edit/' + ${employee.id}}">Edit</a>
+            <a th:href="@{'/employees/delete/' + ${employee.id}}"
+               onclick="return confirm('Are you sure you want to delete this employee?');">Delete</a>
+        </td>
     </tr>
     <tr th:if="${#lists.isEmpty(employees)}">
         <td colspan="3">No employees found.</td>

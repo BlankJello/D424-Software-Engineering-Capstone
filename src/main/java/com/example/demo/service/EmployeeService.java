@@ -10,7 +10,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 @Service
-public class EmployeeService {
+public class EmployeeService implements EmployeeServicelmpl {
     private final EmployeeRepository employeeRepository;
 
     public EmployeeService(EmployeeRepository employeeRepository) {
@@ -38,8 +38,42 @@ public class EmployeeService {
         return employeeRepository.save(employee);
     }
 
-    public void deleteEmployee(Long id) {
-        employeeRepository.deleteById(id);
+    public Employee findById(int theId) {
+        return null;
     }
 
-}
+    public List<Employee> search(String keyword) {
+        // Implement search logic, e.g. search by first name, last name, email, or position
+        return employeeRepository.findByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCaseOrEmailContainingIgnoreCaseOrPositionContainingIgnoreCase(
+                keyword, keyword, keyword, keyword);
+    }
+
+
+    public List<Employee> findAll() {
+        return List.of();
+    }
+
+    public interface employeeService {
+        public List<Employee> findAll();
+
+        public Employee findById(int theId);
+
+        public void save(Employee theEmployee);
+
+        public void deleteById(int theId);
+
+        public List<Employee> listAll(String keyword);
+    }
+
+    @Override
+    public void deleteById(int theId) {
+            Long theIdl = (long) theId;
+            employeeRepository.deleteById(theIdl);
+        }
+        public List<Employee> listAll (String keyword){
+            if (keyword != null) {
+                return employeeRepository.search(keyword);
+            }
+            return (List<Employee>) employeeRepository.findAll();
+        }
+    }

@@ -1,8 +1,10 @@
 package com.example.demo.domain;
 
 import java.time.LocalDate;
-import java.util.List;
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 
 @Entity
 @Table(name="Employee")
@@ -11,11 +13,22 @@ public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank(message = "First name is required")
     private String firstName;
+
+    @NotBlank(message = "Last name is required")
     private String lastName;
+
+    @NotBlank(message = "Email is required")
+    @Email(message = "Email should be valid")
     private String email;
+
+    @NotBlank(message = "Position is required")
     private String position;
-    private LocalDate hireDate;
+
+    @NotBlank(message = "Hire date is required")
+    @Pattern(regexp = "\\d{4}-\\d{2}-\\d{2}", message = "Hire date must be in yyyy-mm-dd format")
+    private String hireDate;
 
     // Constructors, getters, setters
     public Employee() {}
@@ -26,7 +39,7 @@ public class Employee {
         this.lastName = lastName;
         this.email = email;
         this.position = position;
-        this.hireDate = hireDate;
+        this.hireDate = String.valueOf(hireDate);
     }
 
     // Getters and Setters
@@ -45,6 +58,6 @@ public class Employee {
     public String getPosition() { return position; }
     public void setPosition(String position) { this.position = position; }
 
-    public LocalDate getHireDate() { return hireDate; }
-    public void setHireDate(LocalDate hireDate) { this.hireDate = hireDate; }
+    public @NotBlank(message = "Hire date is required") @Pattern(regexp = "\\d{4}-\\d{2}-\\d{2}", message = "Hire date must be in yyyy-mm-dd format") String getHireDate() { return hireDate; }
+    public void setHireDate(String hireDate) { this.hireDate = String.valueOf(LocalDate.parse(hireDate)); }
 }

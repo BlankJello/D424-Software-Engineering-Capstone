@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.FluentQuery;
+import com.example.demo.repositories.EmployeeRepository;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
@@ -143,6 +144,16 @@ public class InMemoryEmployeeRepository implements EmployeeRepository {
     @Override
     public void deleteById(Long id) {
         store.remove(id);
+    }
+
+    @Override
+    public List<Employee> findByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCaseOrEmailContainingIgnoreCaseOrPositionContainingIgnoreCase(String firstName, String lastName, String email, String position) {
+        return List.of();
+    }
+
+    @Override
+    public List<Employee> search(String keyword) {
+        return List.of();
     }
 
     @Override
