@@ -60,41 +60,40 @@ public class EmployeeController {
 
 
 
-    //delete
+    // Delete method
     @GetMapping("/delete/{id}")
-    public String deleteEmployee(@PathVariable("id") int id) {
+    public String deleteEmployee(@PathVariable("id") long id) {
         employeeService.deleteById(id);
         return "redirect:/employees";
     }
 
-    // Show edit form pre-filled with employee data
+    // Show edit form
     @GetMapping("/edit/{id}")
-    public String showEditForm(@PathVariable("id") int id, Model model) {
-        Employee employee = employeeService.findById(id);  // Load employee by ID
-        if (employee == null) {
-            // Employee not found, redirect to a safe page or show error
+    public String showEditForm(@PathVariable("id") long id, Model model) {
+        Employee employee = employeeService.findById(id);
+    /*    if (employee == null) {
             return "redirect:/mainscreen";
         }
-        // Add the employee object to the model for Thymeleaf
+
+     */
         model.addAttribute("employee", employee);
-        // Return the view name of your edit form template
         return "editemployee";
     }
 
-    // Handle form submission to update employee
+    // Update employee
     @PostMapping("/edit/{id}")
-    public String updateEmployee(@PathVariable("id") int id,
+    public String updateEmployee(@PathVariable("id") long id,
                                  @Valid @ModelAttribute("employee") Employee employee,
                                  BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            return "editemployee";  // return to edit form if validation fails
+            return "editemployee";
         }
-        employee.setId((long) id);  // ensure the employee ID is set
-        employeeService.updateEmployee(employee);  // you need this method in service
+        employee.setId(id);
+        employeeService.updateEmployee(employee);
         return "redirect:/employees";
     }
 
-    //error page for new employees
+    //error message for new employees
     @PostMapping
     public String saveEmployee(@Valid @ModelAttribute("employee") Employee employee,
                                BindingResult bindingResult, Model model) {

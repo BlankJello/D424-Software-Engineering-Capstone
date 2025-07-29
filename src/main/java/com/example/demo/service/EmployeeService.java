@@ -9,6 +9,8 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
+
 @Service
 public class EmployeeService implements EmployeeServicelmpl {
     private final EmployeeRepository employeeRepository;
@@ -38,8 +40,8 @@ public class EmployeeService implements EmployeeServicelmpl {
         return employeeRepository.save(employee);
     }
 
-    public Employee findById(int theId) {
-        return null;
+    public Employee findById(long theId) {
+        return (Employee) employeeRepository.findById(id).orElse(null);
     }
 
     public List<Employee> search(String keyword) {
@@ -56,17 +58,18 @@ public class EmployeeService implements EmployeeServicelmpl {
     public interface employeeService {
         public List<Employee> findAll();
 
-        public Employee findById(int theId);
+        public Employee findById(long theId);
 
         public void save(Employee theEmployee);
 
-        public void deleteById(int theId);
+        public void deleteById(long theId);
 
         public List<Employee> listAll(String keyword);
     }
 
+
     @Override
-    public void deleteById(int theId) {
+    public void deleteById(long theId) {
             Long theIdl = (long) theId;
             employeeRepository.deleteById(theIdl);
         }

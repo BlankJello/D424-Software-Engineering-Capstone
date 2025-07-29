@@ -5,9 +5,12 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.AbstractPersistable;
 import org.springframework.data.repository.query.FluentQuery;
 import com.example.demo.repositories.EmployeeRepository;
 
+import javax.persistence.metamodel.SingularAttribute;
+import java.io.Serializable;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Function;
@@ -154,6 +157,11 @@ public class InMemoryEmployeeRepository implements EmployeeRepository {
     @Override
     public List<Employee> search(String keyword) {
         return List.of();
+    }
+
+    @Override
+    public Optional<Object> findById(SingularAttribute<AbstractPersistable, Serializable> id) {
+        return Optional.empty();
     }
 
     @Override

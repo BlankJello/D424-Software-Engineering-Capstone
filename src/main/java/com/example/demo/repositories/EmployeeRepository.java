@@ -1,12 +1,18 @@
 package com.example.demo.repositories;
 
 import com.example.demo.domain.Employee;
+
+import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.data.jpa.domain.AbstractPersistable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+
+import javax.persistence.metamodel.SingularAttribute;
 
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
@@ -23,4 +29,6 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
             "LOWER(e.email) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
             "LOWER(e.position) LIKE LOWER(CONCAT('%', :keyword, '%'))")
     List<Employee> search(@Param("keyword") String keyword);
+
+    Optional<Object> findById(SingularAttribute<AbstractPersistable, Serializable> id);
 }
