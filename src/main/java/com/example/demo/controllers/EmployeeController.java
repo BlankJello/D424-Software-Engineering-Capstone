@@ -71,11 +71,10 @@ public class EmployeeController {
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable("id") long id, Model model) {
         Employee employee = employeeService.findById(id);
-    /*    if (employee == null) {
+        if (employee == null) {
             return "redirect:/mainscreen";
         }
 
-     */
         model.addAttribute("employee", employee);
         return "editemployee";
     }
