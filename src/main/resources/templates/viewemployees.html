@@ -46,6 +46,7 @@
         <td th:text="${employee.position}">Developer</td>
         <td th:text="${employee.hireDate}">Date</td>
         <td>
+        <!--   <a th:href="@{/showEditEmployeeForUpdate(id=${tempemployee.id})}">Edit</a>  -->
             <a th:href="@{'/employees/edit/' + ${employee.id}}">Edit</a>
             <a th:href="@{'/employees/delete/' + ${employee.id}}"
                onclick="return confirm('Are you sure you want to delete this employee?');">Delete</a>

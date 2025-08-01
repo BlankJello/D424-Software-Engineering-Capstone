@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.context.ApplicationContext;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 
 import javax.validation.Valid;
@@ -28,14 +29,17 @@ public class EmployeeController {
 
     public EmployeeController(EmployeeService employeeService) {
         this.employeeService = employeeService;
+        System.out.println("EmployeeController instantiated");
     }
 
     // Show list of employees page
-    // @GetMapping
-    // public String viewEmployees(Model model) {
-    //    model.addAttribute("employees", employeeService.getAllEmployees());
-    //    return "viewemployees";  // Thymeleaf template: viewemployees.html
-    // }
+    /* @GetMapping
+     public String viewEmployees(Model model) {
+       model.addAttribute("employees", employeeService.getAllEmployees());
+       return "viewemployees";  // Thymeleaf template: viewemployees.html
+     }
+
+     */
 
     // Show form to create new employee
     @GetMapping("/new")
@@ -71,12 +75,33 @@ public class EmployeeController {
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable("id") long id, Model model) {
         Employee employee = employeeService.findById(id);
+
+        // Step 1: Log the ID received and the employee found
+        System.out.println("Received request to edit employee with ID: " + id);
         if (employee == null) {
-            return "redirect:/mainscreen";
+            System.out.println("No employee found with ID: " + id);
+            // Redirect to employee list or error page if employee not found
+            return "redirect:/employees";
+        } else {
+            System.out.println("Found employee: " + employee);
         }
 
         model.addAttribute("employee", employee);
         return "editemployee";
+    }
+
+    @GetMapping("/viewemployees")
+    public String viewEmployees(Model model) {
+        List<Employee> employees = employeeService.findAll(); // example method to get employees
+        model.addAttribute("employees", employees);
+        return "viewemployees";
+    }
+
+    @GetMapping("/showEditEmployeeForUpdate")
+    public String showEditEmployeeForUpdate(@RequestParam("employee.id") long id, Model model) {
+        Employee employee = employeeService.findById(id);
+        model.addAttribute("employee", employee);
+        return "editemployee"; // your edit employee template
     }
 
     // Update employee
