@@ -41,7 +41,7 @@ public class EmployeeService implements EmployeeServicelmpl {
     }
 
     public Employee findById(long theId) {
-        return (Employee) employeeRepository.findById(id).orElse(null);
+        return employeeRepository.findById(theId).orElse(null);
     }
 
     public List<Employee> search(String keyword) {

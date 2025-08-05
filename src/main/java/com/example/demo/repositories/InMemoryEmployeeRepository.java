@@ -71,7 +71,6 @@ public class InMemoryEmployeeRepository implements EmployeeRepository {
 
     @Override
     public void flush() {
-
     }
 
     @Override
@@ -166,21 +165,17 @@ public class InMemoryEmployeeRepository implements EmployeeRepository {
 
     @Override
     public void delete(Employee entity) {
-
     }
 
     @Override
     public void deleteAllById(Iterable<? extends Long> longs) {
-
     }
 
     @Override
     public void deleteAll(Iterable<? extends Employee> entities) {
-
     }
 
     @Override
     public void deleteAll() {
-
     }
 }

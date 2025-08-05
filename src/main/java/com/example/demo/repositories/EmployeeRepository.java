@@ -22,7 +22,6 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     List<Employee> findByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCaseOrEmailContainingIgnoreCaseOrPositionContainingIgnoreCase(
             String firstName, String lastName, String email, String position);
 
-
     @Query("SELECT e FROM Employee e WHERE " +
             "LOWER(e.firstName) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
             "LOWER(e.lastName) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +

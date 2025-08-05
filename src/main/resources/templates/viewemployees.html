@@ -39,15 +39,15 @@
     </thead>
     <tbody>
     <tr th:each="employee : ${employees}">
-        <td th:text="${employee.id}">1</td>
+        <td th:text="${employee.id != null ? employee.id : 'null'}">1</td>
         <td th:text="${employee.firstName}">John</td>
         <td th:text="${employee.lastName}">Doe</td>
         <td th:text="${employee.email}">johndoe@email.com</td>
         <td th:text="${employee.position}">Developer</td>
         <td th:text="${employee.hireDate}">Date</td>
         <td>
-        <!--   <a th:href="@{/showEditEmployeeForUpdate(id=${tempemployee.id})}">Edit</a>  -->
-            <a th:href="@{'/employees/edit/' + ${employee.id}}">Edit</a>
+            <!-- Add a null check in the template to disable or hide Edit link if ID is null -->
+            <a th:if="${employee.id != null}" th:href="@{'/employees/edit/' + ${employee.id}}">Edit</a>
             <a th:href="@{'/employees/delete/' + ${employee.id}}"
                onclick="return confirm('Are you sure you want to delete this employee?');">Delete</a>
         </td>
